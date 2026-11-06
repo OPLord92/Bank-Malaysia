@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Malaysian banks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+:root{--bg:#F1F3F9;--card:#fff;--ink:#0B1033;--mut:#56608A;--line:#DDE1EF;--acc:#CC0001;--chip:#E4E8F5;--shadow:0 1px 2px rgba(11,16,51,.06),0 10px 24px -14px rgba(11,16,51,.22);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A0D1F;--card:#131836;--ink:#EEF0FB;--mut:#9BA3CC;--line:#262C55;--acc:#FFCC00;--chip:#1B2145;--shadow:0 10px 24px -14px rgba(0,0,0,.7);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0A0D1F;--card:#131836;--ink:#EEF0FB;--mut:#9BA3CC;--line:#262C55;--acc:#FFCC00;--chip:#1B2145;--shadow:0 10px 24px -14px rgba(0,0,0,.7);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 18px 48px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+h1{margin:0;font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;font-weight:800;letter-spacing:-.035em;max-width:14ch}
+.sub{margin:12px 0 0;color:var(--mut);max-width:52ch}
+#theme{flex:none;display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;font-size:.9rem;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:11px;cursor:pointer;box-shadow:var(--shadow)}
+#theme:hover{border-color:var(--acc)}
+.seg{display:inline-flex;gap:4px;margin-top:24px;padding:4px;background:var(--chip);border-radius:999px}
+.seg button{font:inherit;font-weight:600;color:var(--ink);background:transparent;border:0;border-radius:999px;padding:8px 20px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg+.tools{margin-top:18px}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.tools{margin:28px 0 8px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+#q{font:inherit;width:100%;max-width:340px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:.9rem;font-weight:600;color:var(--ink);background:var(--chip);border:1px solid transparent;border-radius:999px;padding:7px 14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+#count{margin:0 0 4px;color:var(--mut);font-size:.9rem}
+section{margin-top:30px}
+h2{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+h2 span{font-size:.85rem;font-weight:600;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:20px;color:inherit;text-decoration:none;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);border-color:var(--acc)}
+.logo{width:72px;height:72px;border-radius:18px;display:grid;place-items:center;font-weight:800;letter-spacing:-.02em}
+.name{display:block;font-weight:600;line-height:1.25}
+.host{display:block;margin-top:2px;font-size:.78rem;color:var(--mut);overflow-wrap:anywhere}
+.ext{position:absolute;top:14px;right:14px;width:16px;height:16px;color:var(--mut)}
+#empty{margin-top:28px;color:var(--mut)}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:.85rem;max-width:70ch}
+footer a{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="title">Every Malaysian bank, one tap away.</h1>
+      <p class="sub" id="sub">Choose a bank to open its official website in a new tab.</p>
+    </div>
+    <button id="theme" type="button"></button>
+  </header>
+  <div class="seg" id="seg" role="group" aria-label="Directory"><button type="button" data-k="banks" aria-pressed="true">Banks</button><button type="button" data-k="ins" aria-pressed="false">Insurance</button></div>
+  <div class="tools">
+    <input id="q" type="search" placeholder="Search for a bank" aria-label="Search for a bank" autocomplete="off">
+    <div class="chips" id="chips"></div>
+  </div>
+  <p id="count" aria-live="polite"></p>
+  <main id="list"></main>
+  <p id="empty" hidden></p>
+  <footer>Logos appear as brand-colour badges. Each tile opens the official site; the web address is shown on the tile so you can check where you’re going. For the full list of licensed banks, insurers and takaful operators, see <a href="https://www.bnm.gov.my" target="_blank" rel="noopener noreferrer">Bank Negara Malaysia</a>.</footer>
+</div>
+<script>
+const D=[
+["Maybank","M","#FFC82C","https://www.maybank2u.com.my","local","#1A1A1A"],
+["CIMB Bank","CIMB","#B3202A","https://www.cimb.com.my","local"],
+["Public Bank","PB","#D6001C","https://www.pbebank.com","local"],
+["RHB Bank","RHB","#0A62AD","https://www.rhbgroup.com","local"],
+["Hong Leong Bank","HLB","#14377D","https://www.hlb.com.my","local"],
+["AmBank","Am","#E2001A","https://www.ambank.com.my","local"],
+["Alliance Bank","AB","#0A70B8","https://www.alliancebank.com.my","local"],
+["Affin Bank","AFF","#0D3B7A","https://www.affinbank.com.my","local"],
+["Bank Islam","BI","#CF1F2E","https://www.bankislam.com","islamic"],
+["Bank Muamalat","BM","#00807A","https://www.muamalat.com.my","islamic"],
+["MBSB Bank","MBSB","#006B54","https://www.mbsbbank.com","islamic"],
+["Al Rajhi Bank","AR","#1A4E9D","https://www.alrajhibank.com.my","islamic"],
+["Kuwait Finance House","KFH","#00704A","https://www.kfh.com.my","islamic"],
+["Bank Rakyat","BR","#00539F","https://www.bankrakyat.com.my","dev"],
+["BSN","BSN","#003B8E","https://www.bsn.com.my","dev"],
+["Agrobank","Ag","#2E8B3E","https://www.agrobank.com.my","dev"],
+["SME Bank","SME","#C8102E","https://www.smebank.com.my","dev"],
+["EXIM Bank","EXIM","#1D4E89","https://www.exim.com.my","dev"],
+["Bank Pembangunan","BPMB","#0B6E4F","https://www.bankpembangunan.com.my","dev"],
+["GXBank","GX","#0A8F3E","https://gxbank.my","digital"],
+["Boost Bank","B","#E5322D","https://www.boostbank.my","digital"],
+["AEON Bank","AEON","#B5007F","https://www.aeonbank.com.my","digital"],
+["Ryt Bank","RYT","#6C2BD9","https://www.rytbank.my","digital"],
+["KAF Digital Bank","KAF","#0E7C86","https://www.kafdigital.com","digital"],
+["HSBC","HSBC","#DB0011","https://www.hsbc.com.my","foreign"],
+["Standard Chartered","SC","#0473EA","https://www.sc.com/my","foreign"],
+["OCBC Bank","OCBC","#D9261C","https://www.ocbc.com.my","foreign"],
+["UOB","UOB","#0B2D6B","https://www.uob.com.my","foreign"],
+["Citibank","Citi","#0A5BA8","https://www.citibank.com.my","foreign"],
+["Bank of China","BOC","#A6192E","https://www.bankofchina.com/my","foreign"],
+["ICBC","ICBC","#C4161C","https://www.icbc.com.my","foreign"],
+["China Construction Bank","CCB","#0059A9","https://my.ccb.com","foreign"],
+["Deutsche Bank","DB","#0018A8","https://country.db.com/malaysia","foreign"]
+];
+const CATS=[["all","All"],["local","Local commercial"],["islamic","Islamic"],["dev","Development"],["digital","Digital"],["foreign","Foreign"]];
+const I=[
+["AIA Malaysia","AIA","#D31145","https://www.aia.com.my","life"],
+["Great Eastern","GE","#D0112B","https://www.greateasternlife.com/my","life"],
+["Prudential Malaysia","PRU","#ED1B2E","https://www.prudential.com.my","life"],
+["Allianz Malaysia","AZ","#003781","https://www.allianz.com.my","life"],
+["Manulife Malaysia","M","#00A758","https://www.manulife.com.my","life"],
+["Zurich Malaysia","Z","#2167AE","https://www.zurich.com.my","life"],
+["Etiqa","Etiqa","#FFC82C","https://www.etiqa.com.my","life","#1A1A1A"],
+["Sun Life Malaysia","SL","#F5B700","https://www.sunlifemalaysia.com","life","#1A1A1A"],
+["FWD Insurance","FWD","#E87722","https://www.fwd.com.my","life"],
+["Generali Malaysia","GEN","#C21B17","https://www.generali.com.my","life"],
+["Hong Leong Assurance","HLA","#14377D","https://www.hlas.com.my","life"],
+["Tokio Marine Life","TM","#0073B7","https://www.tokiomarine.com/my","life"],
+["MSIG Malaysia","MSIG","#C8102E","https://www.msig.com.my","general"],
+["Sompo Insurance","SOM","#CE0E2D","https://www.sompo.com.my","general"],
+["Liberty Insurance","LIB","#1A1446","https://www.libertyinsurance.com.my","general"],
+["Chubb Malaysia","CHB","#1D2A57","https://www.chubb.com/my-en","general"],
+["AIG Malaysia","AIG","#1F5FA8","https://www.aig.com.my","general"],
+["QBE Malaysia","QBE","#004B87","https://www.qbe.com/my","general"],
+["Kurnia Insurance","K","#D4202C","https://www.kurnia.com","general"],
+["Lonpac Insurance","LON","#0E6BA8","https://www.lonpac.com","general"],
+["Takaful Malaysia","STM","#00843D","https://www.takaful-malaysia.com.my","takaful"],
+["Great Eastern Takaful","GET","#0A7D5A","https://www.greateasterntakaful.com","takaful"],
+["AIA PUBLIC Takaful","APT","#B30F3A","https://www.aia-publictakaful.com.my","takaful"],
+["Prudential BSN Takaful","PBT","#8E1B2E","https://www.prubsn.com.my","takaful"]
+];
+const ICATS=[["all","All"],["life","Life &amp; composite"],["general","General"],["takaful","Takaful"]];
+const SETS={
+banks:{d:D,cats:CATS,title:"Every Malaysian bank, one tap away.",sub:"Choose a bank to open its official website in a new tab.",ph:"Search for a bank",one:"bank",many:"banks",doc:"Malaysian banks"},
+ins:{d:I,cats:ICATS,title:"Every Malaysian insurer, one tap away.",sub:"Choose an insurer or takaful operator to open its official website in a new tab.",ph:"Search for an insurer",one:"insurer",many:"insurers",doc:"Malaysian insurers"}
+};
+const $=s=>document.querySelector(s);
+const root=document.documentElement;
+const ic=p=>`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const SUN=ic('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>');
+const MOON=ic('<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>');
+const EXT='<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+const mq=matchMedia('(prefers-color-scheme: dark)');
+const isDark=()=>root.dataset.theme?root.dataset.theme==='dark':mq.matches;
+function sync(){const d=isDark();const l=d?'Switch to light mode':'Switch to dark mode';$('#theme').innerHTML=d?SUN:MOON;$('#theme').setAttribute('aria-label',l);$('#theme').title=l}
+$('#theme').onclick=()=>{const n=isDark()?'light':'dark';root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}sync()};
+mq.addEventListener('change',sync);sync();
+
+let q='',cat='all',kind=location.hash==='#insurance'?'ins':'banks';
+const host=u=>{const x=new URL(u);return x.hostname.replace(/^www\./,'')+(x.pathname.length>1?x.pathname:'')};
+function card([name,m,c,u,,f]){
+  const fs=m.length<=2?28:m.length===3?22:m.length===4?18:15;
+  return `<a class="card" href="${u}" target="_blank" rel="noopener noreferrer" aria-label="${name}, opens the official website in a new tab">${EXT}<span class="logo" style="background:${c};color:${f||'#fff'};font-size:${fs}px" aria-hidden="true">${m}</span><span><span class="name">${name}</span><span class="host">${host(u)}</span></span></a>`;
+}
+function render(){
+  const main=$('#list');main.textContent='';let n=0;
+  const needle=q.toLowerCase();
+  const S=SETS[kind];
+  for(const [k,label] of S.cats.slice(1)){
+    if(cat!=='all'&&cat!==k)continue;
+    const items=S.d.filter(b=>b[4]===k&&b[0].toLowerCase().includes(needle));
+    if(!items.length)continue;
+    n+=items.length;
+    const s=document.createElement('section');
+    s.innerHTML=`<h2>${label}<span>${items.length}</span></h2><div class="grid">${items.map(card).join('')}</div>`;
+    main.append(s);
+  }
+  $('#count').textContent=`${n} ${n===1?S.one:S.many}`;
+  const e=$('#empty');e.hidden=n>0;e.textContent=n?'':`No ${S.one} matches “${q}”. Try a shorter name or choose All.`;
+}
+function view(){
+  const S=SETS[kind];
+  document.title=S.doc;$('#title').textContent=S.title;$('#sub').textContent=S.sub;
+  $('#q').placeholder=S.ph;$('#q').setAttribute('aria-label',S.ph);
+  document.querySelectorAll('#seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===kind));
+  $('#chips').innerHTML=S.cats.map(([k,l])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k==='all'}">${l}</button>`).join('');
+  render();
+}
+function go(k){kind=k;cat='all';q='';$('#q').value='';view()}
+$('#seg').onclick=e=>{const b=e.target.closest('button');if(!b||b.dataset.k===kind)return;try{history.replaceState(null,'',b.dataset.k==='ins'?'#insurance':location.pathname+location.search)}catch(x){}go(b.dataset.k)};
+addEventListener('hashchange',()=>{const k=location.hash==='#insurance'?'ins':'banks';if(k!==kind)go(k)});
+$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;cat=b.dataset.k;document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));render()};
+$('#q').oninput=e=>{q=e.target.value.trim();render()};
+view();
+</script>
+</body>
+</html>
